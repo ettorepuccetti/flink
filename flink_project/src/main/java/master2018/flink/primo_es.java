@@ -1,4 +1,4 @@
-package boris_ettore.class_exercises;
+package master2018.flink;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 

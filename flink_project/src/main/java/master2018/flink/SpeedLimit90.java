@@ -1,12 +1,14 @@
-package boris_ettore.class_exercises;
+package master2018.flink;
+
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.api.java.tuple.Tuple3;
+
+import org.apache.flink.api.java.tuple.Tuple6;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 
-public class secondo_es {
+public class SpeedLimit90 {
     public static void main(String[] args) {
         
         String inFilePath = args[0];
@@ -16,7 +18,7 @@ public class secondo_es {
     
         DataStreamSource<String> source = env.readTextFile(inFilePath);
 
-        SingleOutputStreamOperator<Tuple3<Long,String,Double>> filterOut = 
+        SingleOutputStreamOperator<Tuple6<Integer,Integer,Integer,Integer,Integer,Integer>> filterOut = 
             source.map(new MyMap())
                 .filter(new MyFilter());
 
@@ -30,24 +32,25 @@ public class secondo_es {
     }
 
 
-    public static final class MyMap implements MapFunction<String,Tuple3<Long,String,Double>> {
+    public static final class MyMap 
+        implements MapFunction<String,Tuple6<Integer,Integer,Integer,Integer,Integer,Integer>> {
         
         @Override
-        public Tuple3<Long,String,Double> map (String in) throws Exception {
+        public Tuple6<Integer,Integer,Integer,Integer,Integer,Integer> map (String in) throws Exception {
             String[] fieldArray = in.split(",");
-            Tuple3<Long, String, Double> out = new Tuple3(Long.parseLong(fieldArray[0]), fieldArray[1],
-                Double.parseDouble(fieldArray[2]));
+            Tuple6<Integer,Integer,Integer,Integer,Integer, Integer> out = 
+                new Tuple6(Integer.parseInt(fieldArray[0]),Integer.parseInt(fieldArray[1]),Integer.parseInt(fieldArray[3]),
+                    Integer.parseInt(fieldArray[6]),Integer.parseInt(fieldArray[5]),Integer.parseInt(fieldArray[2]));
             return out;
         }
     }
 
-    public static final class MyFilter implements FilterFunction<Tuple3<Long,String,Double>> {
+    public static final class MyFilter 
+        implements FilterFunction<Tuple6<Integer,Integer,Integer,Integer,Integer,Integer>> {
        
         @Override
-        public boolean filter(Tuple3<Long, String, Double> in) throws Exception {
-            if(in.f1.equals("sensor1")){ return true;
-            }else{ return false; }
+        public boolean filter (Tuple6<Integer,Integer,Integer,Integer,Integer,Integer> in) throws Exception {
+            return (in.f5 > 90);
         }
-
     }
 }

@@ -12,6 +12,17 @@ public class CarEvent {
     int segment;
     int position;
 
+    public CarEvent(int time, int VID, int speed, int highway, Lane lane, Direction direction, int segment, int position) {
+        this.time = time;
+        this.VID = VID;
+        this.speed = speed;
+        this.highway = highway;
+        this.lane = lane;
+        this.direction = direction;
+        this.segment = segment;
+        this.position = position;
+    }
+
     public int getTime() {
         return time;
     }

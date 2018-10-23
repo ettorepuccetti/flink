@@ -1,5 +1,7 @@
 
 # Created by https://www.gitignore.io/api/java,maven,intellij,apachehadoop
+### VS Code
+.vscode/*
 
 ### ApacheHadoop ###
 *.iml

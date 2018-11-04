@@ -1,0 +1,2 @@
+- do all the 4 events need to have speed = 0?
+- do i have to check that Xway, Lane and Seg are the same?

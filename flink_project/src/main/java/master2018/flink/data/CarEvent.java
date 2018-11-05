@@ -1,6 +1,8 @@
 package master2018.flink.data;
 
 
+import org.apache.flink.api.java.tuple.Tuple8;
+
 public class CarEvent {
 
     int time;
@@ -12,6 +14,8 @@ public class CarEvent {
     int segment;
     int position;
 
+    public CarEvent(){}
+
     public CarEvent(int time, int VID, int speed, int highway, Lane lane, Direction direction, int segment, int position) {
         this.time = time;
         this.VID = VID;
@@ -21,6 +25,20 @@ public class CarEvent {
         this.direction = direction;
         this.segment = segment;
         this.position = position;
+    }
+
+
+    public Tuple8<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> asTuple() {
+        return new Tuple8<>(
+                time,
+                VID,
+                speed,
+                highway,
+                lane.ordinal(),
+                direction.ordinal(),
+                segment,
+                position
+        );
     }
 
     public int getTime() {

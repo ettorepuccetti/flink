@@ -6,80 +6,62 @@ import org.apache.flink.api.java.tuple.Tuple6;
 /**
  * Event is an average speed event as expected for the output CSV file.
  */
-public class Event {
-
-    int time1;
-    int time2;
-    int VID;
-    int highway;
-    Direction direction;
-    double averageSpeed;
+public class Event extends Tuple6<Integer, Integer, Integer, Integer, Direction, Double> {
 
     public Event(int time1, int time2, int VID, int highway, Direction direction, double averageSpeed) {
-        this.time1 = time1;
-        this.time2 = time2;
-        this.VID = VID;
-        this.highway = highway;
-        this.direction = direction;
-        this.averageSpeed = averageSpeed;
-    }
-
-    public Tuple6<Integer, Integer, Integer, Integer, Integer, Double> asTuple() {
-        return new Tuple6<>(
-                time1,
-                time2,
-                VID,
-                highway,
-                direction.ordinal(),
-                averageSpeed
-        );
+        this.f0 = time1;
+        this.f1 = time2;
+        this.f2 = VID;
+        this.f3 = highway;
+        this.f4 = direction;
+        this.f5 = averageSpeed;
     }
 
     public int getTime1() {
-        return time1;
+        return f0;
     }
 
     public void setTime1(int time1) {
-        this.time1 = time1;
+        this.f0 = time1;
     }
 
     public int getTime2() {
-        return time2;
+        return f1;
     }
 
     public void setTime2(int time2) {
-        this.time2 = time2;
+        this.f1 = time2;
     }
 
     public int getVID() {
-        return VID;
+        return f2;
     }
 
     public void setVID(int VID) {
-        this.VID = VID;
+        this.f2 = VID;
     }
 
     public int getHighway() {
-        return highway;
+        return f3;
     }
 
     public void setHighway(int highway) {
-        this.highway = highway;
+        this.f3 = highway;
     }
 
     public Direction getDirection() {
-        return direction;
+        return f4;
     }
 
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        this.f4 = direction;
     }
 
     public double getAverageSpeed() {
-        return averageSpeed;
+        return f5;
     }
 
     public void setAverageSpeed(double averageSpeed) {
-        this.averageSpeed = averageSpeed;
+        this.f5 = averageSpeed;
     }
 }

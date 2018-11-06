@@ -3,105 +3,80 @@ package master2018.flink.data;
 
 import org.apache.flink.api.java.tuple.Tuple8;
 
-public class CarEvent {
+public class CarEvent extends Tuple8<Integer,Integer,Integer,Integer,Lane,Direction,Integer,Integer> {
 
-    int time;
-    int VID;
-    int speed;
-    int highway;
-    Lane lane;
-    Direction direction;
-    int segment;
-    int position;
-
-    public CarEvent(){}
-
-    public CarEvent(int time, int VID, int speed, int highway, Lane lane, Direction direction, int segment, int position) {
-        this.time = time;
-        this.VID = VID;
-        this.speed = speed;
-        this.highway = highway;
-        this.lane = lane;
-        this.direction = direction;
-        this.segment = segment;
-        this.position = position;
-    }
-
-
-    public Tuple8<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> asTuple() {
-        return new Tuple8<>(
-                time,
-                VID,
-                speed,
-                highway,
-                lane.ordinal(),
-                direction.ordinal(),
-                segment,
-                position
-        );
-    }
+//    public CarEvent(int time, int VID, int speed, int highway, Lane lane, Direction direction, int segment, int position) {
+//        this.f0 = time;
+//        this.f1 = VID;
+//        this.f2 = speed;
+//        this.f3 = highway;
+//        this.f4 = lane;
+//        this.f5 = direction;
+//        this.f6 = segment;
+//        this.f7 = position;
+//    }
 
     public int getTime() {
-        return time;
+        return f0;
     }
 
     public void setTime(int time) {
-        this.time = time;
+        this.f0 = time;
     }
 
     public int getVID() {
-        return VID;
+        return f1;
     }
 
     public void setVID(int VID) {
-        this.VID = VID;
+        this.f1 = VID;
     }
 
     public int getSpeed() {
-        return speed;
+        return f2;
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+        this.f2 = speed;
     }
 
     public int getHighway() {
-        return highway;
+        return f3;
     }
 
     public void setHighway(int highway) {
-        this.highway = highway;
+        this.f3 = highway;
     }
 
     public Lane getLane() {
-        return lane;
+        return f4;
     }
 
     public void setLane(Lane lane) {
-        this.lane = lane;
+        this.f4 = lane;
     }
 
     public Direction getDirection() {
-        return direction;
+        return f5;
     }
 
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        this.f5 = direction;
     }
 
     public int getSegment() {
-        return segment;
+        return f6;
     }
 
     public void setSegment(int segment) {
-        this.segment = segment;
+        this.f6 = segment;
     }
 
     public int getPosition() {
-        return position;
+        return f7;
     }
 
     public void setPosition(int position) {
-        this.position = position;
+        this.f7 = position;
     }
 }

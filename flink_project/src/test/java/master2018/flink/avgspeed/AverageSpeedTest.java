@@ -118,7 +118,7 @@ public class AverageSpeedTest {
                 .readTextFile(file.getAbsolutePath())
                 .map(new Map())
                 .filter(new SegmentFilter())
-                .keyBy("VID")
+                .keyBy(1)
                 .window(GlobalWindows.create())
                 .trigger(new MyTrigger<>())
                 .apply(new MyWindowFunction())

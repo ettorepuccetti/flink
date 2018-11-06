@@ -13,7 +13,7 @@ public class AverageSpeed {
     protected static int END_SEGMENT = 56;
 
     // KEY_BY is the field that CarEvents should be keyed by
-    protected static String KEY_BY = "VID";
+    protected static int VID_KEY = 1;
 
     public static void main(String[] args) {
 
@@ -26,12 +26,11 @@ public class AverageSpeed {
                 .readTextFile(inFilePath)
                 .map(new Map())
                 .filter(new SegmentFilter())
-                .keyBy(KEY_BY)
+                .keyBy(VID_KEY)
                 .window(GlobalWindows.create())
                 .trigger(new MyTrigger<>())
                 .apply(new MyWindowFunction())
                 .filter(new SpeedLimitFilter())
-                .map(Event::asTuple)
                 .writeAsCsv(outFilePath);
 
         try {

@@ -1,5 +1,7 @@
 package master2018.flink.accident;
 
+import org.apache.flink.api.java.tuple.Tuple7;
+
 import master2018.flink.data.Direction;
 
 public class AccidentEvent {
@@ -22,6 +24,18 @@ public class AccidentEvent {
         this.direction = direction;
         this.segment = segment;
         this.position = position;
+    }
+
+    public Tuple7<Integer, Integer, Integer, Integer, Integer, Integer, Integer> asTuple() {
+        return new Tuple7<>(
+                time1,
+                time2,
+                VID,
+                highway,
+                direction.ordinal(),
+                segment,
+                position
+        );
     }
 
     public int getTime1() {

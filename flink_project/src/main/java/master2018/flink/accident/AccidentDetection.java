@@ -16,12 +16,11 @@ public class AccidentDetection {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         env
-            .readTextFile(inFilePath).setMaxParallelism(1)
+            .readTextFile(inFilePath).setParallelism(1)
             .map(new Map()).setParallelism(1)
-            .assignTimestampsAndWatermarks(new MyTimeAssigner())
-            .filter(new FilterZero())
-            .keyBy("VID","position")
-            .window(SlidingEventTimeWindows.of(Time.seconds(120), Time.seconds(30)))
+            .filter(new FilterZero()).setParallelism(1)
+            .keyBy("VID","position","direction")
+            .countWindow(4, 1)
             .apply(new CountFour())
             .map(AccidentEvent::asTuple)
             .writeAsCsv(outFilePath, FileSystem.WriteMode.OVERWRITE).setParallelism(1);

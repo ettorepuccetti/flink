@@ -32,8 +32,8 @@ public class AccidentEvent {
                 time2,
                 VID,
                 highway,
-                direction.ordinal(),
                 segment,
+                direction.ordinal(),
                 position
         );
     }

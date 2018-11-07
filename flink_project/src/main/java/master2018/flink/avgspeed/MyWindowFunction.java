@@ -11,24 +11,24 @@ import java.util.Iterator;
 import static master2018.flink.avgspeed.AverageSpeed.END_SEGMENT;
 import static master2018.flink.avgspeed.AverageSpeed.START_SEGMENT;
 
-public class MyWindowFunction implements WindowFunction<CarEvent, Event, Tuple, GlobalWindow> {
+public class MyWindowFunction implements WindowFunction<CarEvent<Integer>, Event<Integer,Double>, Tuple, GlobalWindow> {
 
     // MS_TO_MPH is the scaling factor for converting meter/second to miles/hour
     private static double MS_TO_MPH = 2.23694;
 
     @Override
-    public void apply(Tuple tuple, GlobalWindow globalWindow, Iterable<CarEvent> iterable, Collector<Event> collector) throws Exception {
+    public void apply(Tuple tuple, GlobalWindow globalWindow, Iterable<CarEvent<Integer>> iterable, Collector<Event<Integer,Double>> collector) {
 
         // store the event containing the westmost and eastmost position
         int westmostPosition   = Integer.MAX_VALUE;
         int eastmostPosition   = Integer.MIN_VALUE;
-        CarEvent westmostEvent = null;
-        CarEvent eastmostEvent = null;
+        CarEvent<Integer> westmostEvent = null;
+        CarEvent<Integer> eastmostEvent = null;
 
         // find the westmost and eastmost position
-        Iterator<CarEvent> iterator = iterable.iterator();
+        Iterator<CarEvent<Integer>> iterator = iterable.iterator();
         while(iterator.hasNext()) {
-            CarEvent n = iterator.next();
+            CarEvent<Integer> n = iterator.next();
             // exclude segments out of scope (these were only used to trigger the window function)
             if(n.getSegment() < START_SEGMENT || n.getSegment() > END_SEGMENT) {
                 continue;
@@ -63,7 +63,7 @@ public class MyWindowFunction implements WindowFunction<CarEvent, Event, Tuple, 
         double mph = ms * MS_TO_MPH;
 
         // add average speed event to the collector
-        collector.collect(new Event(
+        collector.collect(new Event<>(
                 Math.min(westmostEvent.getTime(), eastmostEvent.getTime()),
                 Math.max(westmostEvent.getTime(), eastmostEvent.getTime()),
                 westmostEvent.getVID(),

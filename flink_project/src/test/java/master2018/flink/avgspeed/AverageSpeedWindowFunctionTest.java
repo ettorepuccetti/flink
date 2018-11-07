@@ -7,6 +7,7 @@ import org.apache.flink.api.common.functions.util.ListCollector;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow;
 import org.junit.jupiter.api.Test;
+import scala.Int;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,11 +27,11 @@ public class AverageSpeedWindowFunctionTest {
     @Test
     public void applyTest() throws Exception {
         // load a dummy csv file
-        ArrayList<CarEvent> events = loadCsv("master2018/flink/avgspeed/avg-speed.csv");
+        ArrayList<CarEvent<Integer>> events = loadCsv("master2018/flink/avgspeed/avg-speed.csv");
 
         // test the function
-        List<Event> output = new ArrayList<>();
-        ListCollector<Event> collector = new ListCollector<>(output);
+        List<Event<Integer,Double>> output = new ArrayList<>();
+        ListCollector<Event<Integer,Double>> collector = new ListCollector<>(output);
         MyWindowFunction averageSpeedWindowFunction = new MyWindowFunction();
         averageSpeedWindowFunction.apply(mock(Tuple.class), mock(GlobalWindow.class), events, collector);
 
@@ -40,21 +41,21 @@ public class AverageSpeedWindowFunctionTest {
     }
 
     // loadCsv loads a csv file with car events into an ArrayList of CarEvents
-    private ArrayList<CarEvent> loadCsv(String filepath) throws FileNotFoundException {
+    private ArrayList<CarEvent<Integer>> loadCsv(String filepath) throws FileNotFoundException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(filepath).getFile());
         Scanner scanner = new Scanner(file);
 
-        ArrayList<CarEvent> out = new ArrayList<>();
+        ArrayList<CarEvent<Integer>> out = new ArrayList<>();
         while(scanner.hasNext()) {
             String[] fieldArray = scanner.nextLine().split(",");
-            out.add(new CarEvent(
+            out.add(new CarEvent<>(
                     Integer.parseInt(fieldArray[0]),
                     Integer.parseInt(fieldArray[1]),
                     Integer.parseInt(fieldArray[2]),
                     Integer.parseInt(fieldArray[3]),
-                    Lane.values()[Integer.parseInt(fieldArray[4])],
-                    Direction.values()[Integer.parseInt(fieldArray[5])],
+                    Integer.parseInt(fieldArray[4]),
+                    Integer.parseInt(fieldArray[5]),
                     Integer.parseInt(fieldArray[6]),
                     Integer.parseInt(fieldArray[7])
             ));

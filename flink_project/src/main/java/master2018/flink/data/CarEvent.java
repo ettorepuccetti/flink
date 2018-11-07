@@ -3,80 +3,81 @@ package master2018.flink.data;
 
 import org.apache.flink.api.java.tuple.Tuple8;
 
-public class CarEvent extends Tuple8<Integer,Integer,Integer,Integer,Lane,Direction,Integer,Integer> {
+public class CarEvent<K> extends Tuple8<K,K,K,K,K,K,K,K> {
 
-//    public CarEvent(int time, int VID, int speed, int highway, Lane lane, Direction direction, int segment, int position) {
-//        this.f0 = time;
-//        this.f1 = VID;
-//        this.f2 = speed;
-//        this.f3 = highway;
-//        this.f4 = lane;
-//        this.f5 = direction;
-//        this.f6 = segment;
-//        this.f7 = position;
-//    }
+    public CarEvent(){}
+    public CarEvent(K time, K VID, K speed, K highway, K lane, K direction, K segment, K position) {
+        this.f0 = time;
+        this.f1 = VID;
+        this.f2 = speed;
+        this.f3 = highway;
+        this.f4 = lane;
+        this.f5 = direction;
+        this.f6 = segment;
+        this.f7 = position;
+    }
 
-    public int getTime() {
+    public K getTime() {
         return f0;
     }
 
-    public void setTime(int time) {
+    public void setTime(K time) {
         this.f0 = time;
     }
 
-    public int getVID() {
+    public K getVID() {
         return f1;
     }
 
-    public void setVID(int VID) {
+    public void setVID(K VID) {
         this.f1 = VID;
     }
 
-    public int getSpeed() {
+    public K getSpeed() {
         return f2;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(K speed) {
         this.f2 = speed;
     }
 
-    public int getHighway() {
+    public K getHighway() {
         return f3;
     }
 
-    public void setHighway(int highway) {
+    public void setHighway(K highway) {
         this.f3 = highway;
     }
 
-    public Lane getLane() {
+    public K getLane() {
         return f4;
     }
 
-    public void setLane(Lane lane) {
+    public void setLane(K lane) {
         this.f4 = lane;
     }
 
-    public Direction getDirection() {
+    public K getDirection() {
         return f5;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(K direction) {
         this.f5 = direction;
     }
 
-    public int getSegment() {
+    public K getSegment() {
         return f6;
     }
 
-    public void setSegment(int segment) {
+    public void setSegment(K segment) {
         this.f6 = segment;
     }
 
-    public int getPosition() {
+    public K getPosition() {
         return f7;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(K position) {
         this.f7 = position;
     }
 }

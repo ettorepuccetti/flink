@@ -6,9 +6,9 @@ import org.apache.flink.api.java.tuple.Tuple6;
 /**
  * Event is an average speed event as expected for the output CSV file.
  */
-public class Event extends Tuple6<Integer, Integer, Integer, Integer, Direction, Double> {
+public class Event<A,B> extends Tuple6<A,A,A,A,A,B> {
 
-    public Event(int time1, int time2, int VID, int highway, Direction direction, double averageSpeed) {
+    public Event(A time1, A time2, A VID, A highway, A direction, B averageSpeed) {
         this.f0 = time1;
         this.f1 = time2;
         this.f2 = VID;
@@ -17,51 +17,51 @@ public class Event extends Tuple6<Integer, Integer, Integer, Integer, Direction,
         this.f5 = averageSpeed;
     }
 
-    public int getTime1() {
+    public A getTime1() {
         return f0;
     }
 
-    public void setTime1(int time1) {
+    public void setTime1(A time1) {
         this.f0 = time1;
     }
 
-    public int getTime2() {
+    public A getTime2() {
         return f1;
     }
 
-    public void setTime2(int time2) {
+    public void setTime2(A time2) {
         this.f1 = time2;
     }
 
-    public int getVID() {
+    public A getVID() {
         return f2;
     }
 
-    public void setVID(int VID) {
+    public void setVID(A VID) {
         this.f2 = VID;
     }
 
-    public int getHighway() {
+    public A getHighway() {
         return f3;
     }
 
-    public void setHighway(int highway) {
+    public void setHighway(A highway) {
         this.f3 = highway;
     }
 
-    public Direction getDirection() {
+    public A getDirection() {
         return f4;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(A direction) {
         this.f4 = direction;
     }
 
-    public double getAverageSpeed() {
+    public B getAverageSpeed() {
         return f5;
     }
 
-    public void setAverageSpeed(double averageSpeed) {
+    public void setAverageSpeed(B averageSpeed) {
         this.f5 = averageSpeed;
     }
 }

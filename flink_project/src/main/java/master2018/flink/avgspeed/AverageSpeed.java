@@ -1,6 +1,8 @@
 package master2018.flink.avgspeed;
 
 import master2018.flink.Map;
+import org.apache.flink.core.fs.FileSystem;
+import org.apache.flink.streaming.api.datastream.DataStreamSink;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.GlobalWindows;
 
@@ -23,15 +25,17 @@ public class AverageSpeed {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         env
-                .readTextFile(inFilePath)
-                .map(new Map())
-                .filter(new SegmentFilter())
+                .readTextFile(inFilePath).setParallelism(1)
+                .map(new Map()).setParallelism(1)
+                .filter(new SegmentFilter()).setParallelism(1)
+                // TODO: 07/11/2018 check if keyBy is sufficient now
+//                .keyBy(VID_KEY, "highway", "direction")
                 .keyBy(VID_KEY)
                 .window(GlobalWindows.create())
                 .trigger(new MyTrigger<>())
                 .apply(new MyWindowFunction())
                 .filter(new SpeedLimitFilter())
-                .writeAsCsv(outFilePath);
+                .writeAsCsv(outFilePath, FileSystem.WriteMode.OVERWRITE).setParallelism(1);
 
         try {
             env.execute("avgspeed");

@@ -7,18 +7,18 @@ import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple6;
 
 public final class Map
-        implements MapFunction<String, CarEvent> {
+        implements MapFunction<String, CarEvent<Integer>> {
 
     @Override
-    public CarEvent map (String in) {
+    public CarEvent<Integer> map (String in) {
         String[] fieldArray = in.split(",");
-        return new CarEvent(
+        return new CarEvent<>(
                 Integer.parseInt(fieldArray[0]),
                 Integer.parseInt(fieldArray[1]),
                 Integer.parseInt(fieldArray[2]),
                 Integer.parseInt(fieldArray[3]),
-                Lane.values()[Integer.parseInt(fieldArray[4])],
-                Direction.values()[Integer.parseInt(fieldArray[5])],
+                Integer.parseInt(fieldArray[4]),
+                Integer.parseInt(fieldArray[5]),
                 Integer.parseInt(fieldArray[6]),
                 Integer.parseInt(fieldArray[7])
         );

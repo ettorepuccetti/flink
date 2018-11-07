@@ -19,7 +19,7 @@ import static master2018.flink.avgspeed.AverageSpeed.START_SEGMENT;
  * @param <T> CarEvent
  * @param <W> Window
  */
-public class MyTrigger<T extends CarEvent, W extends Window> extends Trigger<T, W> {
+public class MyTrigger<T extends CarEvent<Integer>, W extends Window> extends Trigger<T, W> {
 
     /**
      * onElement implements the triggering logic.
@@ -31,13 +31,13 @@ public class MyTrigger<T extends CarEvent, W extends Window> extends Trigger<T, 
      */
     @Override
     public TriggerResult onElement(T t, long l, W w, TriggerContext triggerContext) {
-        if (t.getSegment() == START_SEGMENT - 1 && t.getDirection() == Direction.WEST) {
+        if (t.getSegment() == START_SEGMENT - 1 && t.getDirection() == 1) {
             return TriggerResult.FIRE_AND_PURGE;
         }
-        if (t.getSegment() == END_SEGMENT + 1 && t.getDirection() == Direction.EAST) {
+        if (t.getSegment() == END_SEGMENT + 1 && t.getDirection() == 0) {
             return TriggerResult.FIRE_AND_PURGE;
         }
-        if (t.getLane() == Lane.EXIT) {
+        if (t.getLane() == 4) {
             return TriggerResult.PURGE;
         }
         return TriggerResult.CONTINUE;

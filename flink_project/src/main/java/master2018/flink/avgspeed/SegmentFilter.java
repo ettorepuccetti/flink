@@ -13,9 +13,6 @@ import static master2018.flink.avgspeed.AverageSpeed.START_SEGMENT;
 public class SegmentFilter implements FilterFunction<CarEvent> {
     @Override
     public boolean filter(CarEvent carEvent) {
-        if(carEvent.getSegment() >= START_SEGMENT - 1 && carEvent.getSegment() <= END_SEGMENT + 1) {
-            return true;
-        }
-        return false;
+        return (carEvent.getSegment() >= START_SEGMENT - 1 && carEvent.getSegment() <= END_SEGMENT + 1);
     }
 }

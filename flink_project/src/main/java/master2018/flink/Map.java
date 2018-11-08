@@ -4,7 +4,6 @@ import master2018.flink.data.CarEvent;
 import master2018.flink.data.Direction;
 import master2018.flink.data.Lane;
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.java.tuple.Tuple6;
 
 public final class Map
         implements MapFunction<String, CarEvent> {

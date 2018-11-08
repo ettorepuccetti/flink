@@ -1,52 +1,57 @@
-package master2018.flink.data;
+package master2018.flink.accident;
 
+import org.apache.flink.api.java.tuple.Tuple7;
 
-import org.apache.flink.api.java.tuple.Tuple8;
+import master2018.flink.data.Direction;
 
-public class CarEvent {
+public class AccidentEvent {
 
-    int time;
+    int time1;
+    int time2;
     int VID;
     int speed;
     int highway;
-    Lane lane;
     Direction direction;
     int segment;
     int position;
 
-    public CarEvent(){}
+    public AccidentEvent(int time1, int time2, int VID, int highway, int segment, Direction direction, int position) {
 
-    public CarEvent(int time, int VID, int speed, int highway, Lane lane, Direction direction, int segment, int position) {
-        this.time = time;
+        this.time1 = time1;
+        this.time2 = time2;
         this.VID = VID;
-        this.speed = speed;
         this.highway = highway;
-        this.lane = lane;
         this.direction = direction;
         this.segment = segment;
         this.position = position;
     }
 
-
-    public Tuple8<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> asTuple() {
-        return new Tuple8<>(
-                time,
+    public Tuple7<Integer, Integer, Integer, Integer, Integer, Integer, Integer> asTuple() {
+        return new Tuple7<>(
+                time1,
+                time2,
                 VID,
-                speed,
                 highway,
-                lane.ordinal(),
-                direction.ordinal(),
                 segment,
+                direction.ordinal(),
                 position
         );
     }
 
-    public int getTime() {
-        return time;
+    public int getTime1() {
+        return time1;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public void setTime1(int time1) {
+        this.time1 = time1;
+    }
+
+    public int getTime2() {
+        return time2;
+    }
+
+    public void setTime2(int time2) {
+        this.time2 = time2;
     }
 
     public int getVID() {
@@ -71,14 +76,6 @@ public class CarEvent {
 
     public void setHighway(int highway) {
         this.highway = highway;
-    }
-
-    public Lane getLane() {
-        return lane;
-    }
-
-    public void setLane(Lane lane) {
-        this.lane = lane;
     }
 
     public Direction getDirection() {

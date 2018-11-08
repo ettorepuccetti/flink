@@ -4,6 +4,8 @@
 ### VS Code ###
 .vscode/*
 
+### backup file
+*.bak
 
 ### ApacheHadoop ###
 *.iml

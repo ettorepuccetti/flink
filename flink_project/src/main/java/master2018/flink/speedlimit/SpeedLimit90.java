@@ -15,6 +15,7 @@ public class SpeedLimit90 {
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
     
+
         SingleOutputStreamOperator<CarEvent> mapOutput = env
                 .readTextFile(inFilePath).setParallelism(1)
                 .map(new Map()).setParallelism(1);

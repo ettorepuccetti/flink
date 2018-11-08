@@ -1,5 +1,6 @@
 package master2018.flink;
 
+import master2018.flink.accident.AccidentDetection;
 import master2018.flink.avgspeed.AverageSpeed;
 import master2018.flink.data.CarEvent;
 import master2018.flink.speedlimit.SpeedLimit90;
@@ -18,6 +19,11 @@ public class VehicleTelematics {
      */
     public static String FILE_AVG_SPEED_FINES = "avgspeedfines.csv";
 
+    /**
+     * FILE_ACCIDENT_DETECTION specifies the output file for accident detection
+     */
+    public static String FILE_ACCIDENT_DETECTION = "accidents.csv";
+
     public static void main(String[] args) {
 
         String inFilePath = args[0];
@@ -34,6 +40,7 @@ public class VehicleTelematics {
         // let each individual package handle its processing
         AverageSpeed.handleStream(mapOutput, outFilePath + "/" + FILE_AVG_SPEED_FINES);
         SpeedLimit90.handleStream(mapOutput, outFilePath + "/" + FILE_SPEED_FINES);
+        AccidentDetection.handleStream(mapOutput, outFilePath + "/" + FILE_ACCIDENT_DETECTION);
 
         // execute the environment
         try {

@@ -3,7 +3,6 @@ package master2018.flink.speedlimit;
 import master2018.flink.Map;
 import master2018.flink.data.CarEvent;
 import org.apache.flink.core.fs.FileSystem;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 

@@ -11,9 +11,6 @@ public class SpeedLimitFilter implements FilterFunction<Event> {
 
     @Override
     public boolean filter(Event event) {
-        if(event.getAverageSpeed() > MAX_SPEED) {
-            return true;
-        }
-        return false;
+        return (event.getAverageSpeed() > MAX_SPEED);
     }
 }

@@ -1,8 +1,6 @@
 package master2018.flink.accident;
 
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
-import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.core.fs.FileSystem;
 
 import master2018.flink.Map;
@@ -21,7 +19,7 @@ public class AccidentDetection {
             .filter(new FilterZero()).setParallelism(1)
             .keyBy("VID","position","direction")
             .countWindow(4, 1)
-            .apply(new CountFour())
+            .apply(new CheckConsecutive())
             .map(AccidentEvent::asTuple)
             .writeAsCsv(outFilePath, FileSystem.WriteMode.OVERWRITE).setParallelism(1);
 

@@ -7,16 +7,14 @@ import java.util.List;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow;
-import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
 import master2018.flink.data.CarEvent;
-import master2018.flink.data.Direction;
 
-public class CountFour implements WindowFunction<CarEvent, AccidentEvent, Tuple, GlobalWindow> {
+public class CheckConsecutive implements WindowFunction<CarEvent, AccidentEvent, Tuple, GlobalWindow> {
     
     @Override
-    public void apply(Tuple key, GlobalWindow window, Iterable<CarEvent> input, Collector<AccidentEvent> out) throws Exception {
+    public void apply(Tuple key, GlobalWindow window, Iterable<CarEvent> input, Collector<AccidentEvent> out) {
 
         Iterator<CarEvent> iterator = input.iterator();
         List<CarEvent> listevent = new ArrayList<CarEvent>();
@@ -26,14 +24,14 @@ public class CountFour implements WindowFunction<CarEvent, AccidentEvent, Tuple,
         if (listevent.size() == 4) {
             CarEvent first = listevent.get(0);
             CarEvent last = listevent.get(3);
-            boolean timecorrect = true;
-            int timestart = first.getTime();
+            boolean timeConsecutive = true;
+            int timeStart = first.getTime();
             int i = 1;
-            while (timecorrect && i < 4) {
-                if (listevent.get(i).getTime() != timestart + 30*i) timecorrect = false;
+            while (timeConsecutive && i < 4) {
+                if (listevent.get(i).getTime() != timeStart + 30*i) timeConsecutive = false;
                 i++;
             }
-            if (timecorrect) {
+            if (timeConsecutive) {
                 out.collect(new AccidentEvent(
                     first.getTime(),
                     last.getTime(),

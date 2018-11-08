@@ -1,14 +1,13 @@
 package master2018.flink.speedlimit;
 
+import master2018.flink.data.CarEvent;
 import org.apache.flink.api.common.functions.FilterFunction;
-import org.apache.flink.api.java.tuple.Tuple6;
 
-public final class Filter
-        implements FilterFunction<Tuple6<Integer,Integer,Integer,Integer,Integer,Integer>> {
+public final class Filter implements FilterFunction<CarEvent> {
 
     @Override
-    public boolean filter (Tuple6<Integer,Integer,Integer,Integer,Integer,Integer> in) throws Exception {
-        return (in.f5 > 90);
+    public boolean filter (CarEvent carEvent) {
+        return (carEvent.getSpeed() > 90);
     }
 }
 

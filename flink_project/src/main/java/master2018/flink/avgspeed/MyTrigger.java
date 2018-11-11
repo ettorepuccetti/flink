@@ -37,6 +37,12 @@ public class MyTrigger<T extends CarEvent, W extends Window> extends Trigger<T, 
         if (t.getSegment() == END_SEGMENT + 1 && t.getDirection() == Direction.EAST) {
             return TriggerResult.FIRE_AND_PURGE;
         }
+        if (t.getSegment() == START_SEGMENT && t.getDirection() == Direction.WEST && t.getLane() == Lane.EXIT) {
+            return TriggerResult.FIRE_AND_PURGE;
+        }
+        if (t.getSegment() == END_SEGMENT && t.getDirection() == Direction.EAST && t.getLane() == Lane.EXIT) {
+            return TriggerResult.FIRE_AND_PURGE;
+        }
         if (t.getLane() == Lane.EXIT) {
             return TriggerResult.PURGE;
         }

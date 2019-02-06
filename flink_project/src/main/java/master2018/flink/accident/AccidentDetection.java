@@ -38,5 +38,3 @@ public class AccidentDetection {
             .writeAsCsv(outfile, FileSystem.WriteMode.OVERWRITE).setParallelism(1);
     }
 }
-
-

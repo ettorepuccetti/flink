@@ -11,11 +11,11 @@ public class AccidentEvent {
     int VID;
     int speed;
     int highway;
-    Direction direction;
+    int direction;
     int segment;
     int position;
 
-    public AccidentEvent(int time1, int time2, int VID, int highway, int segment, Direction direction, int position) {
+    public AccidentEvent(int time1, int time2, int VID, int highway, int segment, int direction, int position) {
 
         this.time1 = time1;
         this.time2 = time2;
@@ -33,7 +33,7 @@ public class AccidentEvent {
                 VID,
                 highway,
                 segment,
-                direction.ordinal(),
+                direction,
                 position
         );
     }
@@ -78,11 +78,11 @@ public class AccidentEvent {
         this.highway = highway;
     }
 
-    public Direction getDirection() {
+    public int getDirection() {
         return direction;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(int direction) {
         this.direction = direction;
     }
 

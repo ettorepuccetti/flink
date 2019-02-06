@@ -17,7 +17,7 @@ public final class Map
                 Integer.parseInt(fieldArray[2]),
                 Integer.parseInt(fieldArray[3]),
                 Lane.values()[Integer.parseInt(fieldArray[4])],
-                Direction.values()[Integer.parseInt(fieldArray[5])],
+                Integer.parseInt(fieldArray[5]),
                 Integer.parseInt(fieldArray[6]),
                 Integer.parseInt(fieldArray[7])
         );

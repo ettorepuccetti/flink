@@ -31,16 +31,16 @@ public class MyTrigger<T extends CarEvent, W extends Window> extends Trigger<T, 
      */
     @Override
     public TriggerResult onElement(T t, long l, W w, TriggerContext triggerContext) {
-        if (t.getSegment() == START_SEGMENT - 1 && t.getDirection() == Direction.WEST) {
+        if (t.getSegment() == START_SEGMENT - 1 && t.getDirection() == 1) {
             return TriggerResult.FIRE_AND_PURGE;
         }
-        if (t.getSegment() == END_SEGMENT + 1 && t.getDirection() == Direction.EAST) {
+        if (t.getSegment() == END_SEGMENT + 1 && t.getDirection() == 0) {
             return TriggerResult.FIRE_AND_PURGE;
         }
-        if (t.getSegment() == START_SEGMENT && t.getDirection() == Direction.WEST && t.getLane() == Lane.EXIT) {
+        if (t.getSegment() == START_SEGMENT && t.getDirection() == 1 && t.getLane() == Lane.EXIT) {
             return TriggerResult.FIRE_AND_PURGE;
         }
-        if (t.getSegment() == END_SEGMENT && t.getDirection() == Direction.EAST && t.getLane() == Lane.EXIT) {
+        if (t.getSegment() == END_SEGMENT && t.getDirection() == 0 && t.getLane() == Lane.EXIT) {
             return TriggerResult.FIRE_AND_PURGE;
         }
         if (t.getLane() == Lane.EXIT) {

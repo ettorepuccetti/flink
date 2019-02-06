@@ -14,7 +14,7 @@ public final class OutputMap
                 carEvent.getVID(),
                 carEvent.getHighway(),
                 carEvent.getSegment(),
-                carEvent.getDirection().ordinal(),
+                carEvent.getDirection(),
                 carEvent.getSpeed()
         );
     }

@@ -12,10 +12,10 @@ public class Event {
     int time2;
     int VID;
     int highway;
-    Direction direction;
+    int direction;
     double averageSpeed;
 
-    public Event(int time1, int time2, int VID, int highway, Direction direction, double averageSpeed) {
+    public Event(int time1, int time2, int VID, int highway, int direction, double averageSpeed) {
         this.time1 = time1;
         this.time2 = time2;
         this.VID = VID;
@@ -30,7 +30,7 @@ public class Event {
                 time2,
                 VID,
                 highway,
-                direction.ordinal(),
+                direction,
                 averageSpeed
         );
     }
@@ -67,11 +67,11 @@ public class Event {
         this.highway = highway;
     }
 
-    public Direction getDirection() {
+    public int getDirection() {
         return direction;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(int direction) {
         this.direction = direction;
     }
 

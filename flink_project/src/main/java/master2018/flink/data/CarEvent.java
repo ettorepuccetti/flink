@@ -3,6 +3,8 @@ package master2018.flink.data;
 
 import org.apache.flink.api.java.tuple.Tuple8;
 
+import java.util.Objects;
+
 public class CarEvent {
 
     int time;
@@ -10,13 +12,13 @@ public class CarEvent {
     int speed;
     int highway;
     Lane lane;
-    Direction direction;
+    int direction;
     int segment;
     int position;
 
     public CarEvent(){}
 
-    public CarEvent(int time, int VID, int speed, int highway, Lane lane, Direction direction, int segment, int position) {
+    public CarEvent(int time, int VID, int speed, int highway, Lane lane, int direction, int segment, int position) {
         this.time = time;
         this.VID = VID;
         this.speed = speed;
@@ -27,6 +29,35 @@ public class CarEvent {
         this.position = position;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarEvent carEvent = (CarEvent) o;
+        return time == carEvent.time &&
+                VID == carEvent.VID &&
+                speed == carEvent.speed &&
+                highway == carEvent.highway &&
+                segment == carEvent.segment &&
+                position == carEvent.position &&
+                direction == carEvent.direction &&
+                Objects.equals(lane.name(), carEvent.lane.name());
+    }
+
+    @Override
+    public int hashCode() {
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++TEST++++++++++++++++++++++++++");
+        int result = 1;
+        result = 31 * result + time;
+        result = 31 * result + VID;
+        result = 31 * result + speed;
+        result = 31 * result + highway;
+        result = 31 * result + segment;
+        result = 31 * result + position;
+        result = 31 * result + lane.name().hashCode();
+        result = 31 * result + direction;
+        return result;
+    }
 
     public Tuple8<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> asTuple() {
         return new Tuple8<>(
@@ -35,11 +66,12 @@ public class CarEvent {
                 speed,
                 highway,
                 lane.ordinal(),
-                direction.ordinal(),
+                direction,
                 segment,
                 position
         );
     }
+
 
     public int getTime() {
         return time;
@@ -81,11 +113,11 @@ public class CarEvent {
         this.lane = lane;
     }
 
-    public Direction getDirection() {
+    public int getDirection() {
         return direction;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(int direction) {
         this.direction = direction;
     }
 
